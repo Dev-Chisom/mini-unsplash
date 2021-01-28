@@ -2,15 +2,20 @@
   <div>
     <header class="main__header">
       <div class="header__form-container">
-        <h1 v-if="ifSearching">
-          {{
-            isSearching
-              ? 'Searching for '
-              : photos.length >= 1
-              ? 'Result for '
-              : 'No Result For '
-          }}<span>{{ searchText }}</span>
-        </h1>
+        <div class="heading__container" v-if="ifSearching">
+          <h1>
+            {{
+              isSearching
+                ? 'Searching for '
+                : photos.length >= 1
+                ? 'Result for '
+                : 'No Result For '
+            }}<span>{{ searchText }}</span>
+          </h1>
+          <div class="heading__close" @click="ifSearching = false">
+            <i class="fas fa-times-circle"></i>
+          </div>
+        </div>
         <form v-else class="header__form" @submit.prevent="HandleSearch()">
           <span class="header__icon"><i class="fa fa-search"></i></span>
           <input
@@ -165,6 +170,19 @@ span {
   background-color: var(--primary-grey);
   height: 25em;
   width: 100%;
+}
+.heading__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.heading__close {
+  border-radius: 50%;
+  padding: 0 0.4em;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-size: 2em;
+  color: #000;
 }
 .header__form-container {
   width: 80%;
@@ -368,5 +386,21 @@ span {
 .modal__info {
   color: rgb(53, 52, 52);
   padding: 2em 1em;
+}
+@media screen and (max-width: 600px) {
+  .header__icon {
+    padding-right: 0;
+  }
+  .header__search {
+    padding-left: 1em;
+    width: 50%;
+  }
+  .images__item {
+    grid-row-end: span 6 !important;
+  }
+  .modal__close {
+    font-size: 2em;
+    border-radius: 50%;
+  }
 }
 </style>
